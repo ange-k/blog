@@ -48,6 +48,12 @@ importers:
       colorjs.io:
         specifier: ^0.5.2
         version: 0.5.2
+      fa6-brands:x-twitter:
+        specifier: link:@iconify-json/fa6-brands:x-twitter
+        version: link:@iconify-json/fa6-brands:x-twitter
+      fa6-solid:file-lines:
+        specifier: link:@iconify-json/fa6-solid:file-lines
+        version: link:@iconify-json/fa6-solid:file-lines
       hastscript:
         specifier: ^9.0.0
         version: 9.0.0
