@@ -49,7 +49,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
   avatar: 'assets/images/blue-icon.png',  // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: 'ange-k',
-  bio: 'Web engineer at LINE Yahoo Corporation, specializing in asynchronous processing and large-scale data handling. Passionate about consumer games (FromSoftware, Bethesda, Gust). Sharing insights on web technologies and personal growth through my blog',
+  bio: 'Web engineer at LY Corporation, specializing in asynchronous processing and large-scale data handling. Passionate about consumer games (FromSoftware, Bethesda, Gust). Sharing insights on web technologies and personal growth through my blog',
   links: [
     {
       name: 'X',

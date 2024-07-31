@@ -1,10 +1,6 @@
 ---
-import path from 'node:path'
-import { getCollection } from 'astro:content'
 import License from '@components/misc/License.astro'
 import Markdown from '@components/misc/Markdown.astro'
-import I18nKey from '@i18n/i18nKey'
-import { i18n } from '@i18n/translation'
 import MainGridLayout from '@layouts/MainGridLayout.astro'
 import { getDir, getPostUrlBySlug } from '@utils/url-utils'
 import { Icon } from 'astro-icon/components'
@@ -13,38 +9,38 @@ import PostMetadata from '../../components/PostMeta.astro'
 import ImageWrapper from '../../components/misc/ImageWrapper.astro'
 import { profileConfig } from '../../config'
 import { formatDateToYYYYMMDD } from '../../utils/date-utils'
+import { getSortedPosts } from '@utils/content-utils'
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('posts', ({ data }) => {
-    return import.meta.env.PROD ? data.draft !== true : true
-  })
-  return blogEntries.map(entry => ({
+  const allBlogPosts = await getSortedPosts();
+
+  return allBlogPosts.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
   }))
 }
 
 const { entry } = Astro.props
-const { Content } = await entry.render()
+// const { Content } = await entry.render()
 
-const { remarkPluginFrontmatter } = await entry.render()
+// const { remarkPluginFrontmatter } = await entry.render()
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: entry.data.title,
-  description: entry.data.description || entry.data.title,
-  keywords: entry.data.tags,
+  headline: entry.title,
+  description: entry.meta.description || entry.title,
+  keywords: entry.tags.map((t) => t.name),
   author: {
     '@type': 'Person',
     name: profileConfig.name,
     url: Astro.site,
   },
-  datePublished: formatDateToYYYYMMDD(entry.data.published),
+  datePublished: formatDateToYYYYMMDD(new Date(entry._sys.raw.publishedAt)),
   // TODO include cover image here
 }
 ---
-<MainGridLayout banner={entry.data.image} title={entry.data.title} description={entry.data.description}>
+<MainGridLayout banner={entry.coverImage.src} title={entry.title} description={entry.meta.description}>
     <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
         <div id="post-container" class:list={["card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full ",
@@ -56,13 +52,13 @@ const jsonLd = {
                     <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
                         <Icon name="material-symbols:notes-rounded"></Icon>
                     </div>
-                    <div class="text-sm">{remarkPluginFrontmatter.words} {" " + i18n(I18nKey.wordsCount)}</div>
+                    <!-- <div class="text-sm">{remarkPluginFrontmatter.words} {" " + i18n(I18nKey.wordsCount)}</div> -->
                 </div>
                 <div class="flex flex-row items-center">
                     <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
                         <Icon name="material-symbols:schedule-outline-rounded"></Icon>
                     </div>
-                    <div class="text-sm">{remarkPluginFrontmatter.minutes} {" " + i18n(I18nKey.minutesCount)}</div>
+                    <!-- <div class="text-sm">{remarkPluginFrontmatter.minutes} {" " + i18n(I18nKey.minutesCount)}</div> -->
                 </div>
             </div>
 
@@ -76,7 +72,7 @@ const jsonLd = {
                     md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
                     before:absolute before:top-[0.75rem] before:left-[-1.125rem]
                 ">
-                    {entry.data.title}
+                    {entry.title}
                 </div>
             </div>
 
@@ -84,25 +80,26 @@ const jsonLd = {
             <div class="onload-animation">
                 <PostMetadata
                         class="mb-5"
-                        published={entry.data.published}
-                        tags={entry.data.tags}
-                        category={entry.data.category}
+                        published={new Date(entry._sys.raw.publishedAt)}
+                        tags={entry.tags.map((t) => t.name)}
+                        category={entry.category.name}
                 ></PostMetadata>
-                {!entry.data.image && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>}
+                {!entry.coverImage.src && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>}
             </div>
 
             <!-- always show cover as long as it has one -->
 
-            {entry.data.image &&
-                <ImageWrapper id="post-cover" src={entry.data.image} basePath={path.join("content/posts/", getDir(entry.id))} class="mb-8 rounded-xl banner-container onload-animation"/>
+            {entry.coverImage.src &&
+                <ImageWrapper id="post-cover" src={entry.coverImage.src} class="mb-8 rounded-xl banner-container onload-animation"/>
             }
 
 
             <Markdown class="mb-6 markdown-content onload-animation">
-                <Content />
+                <!-- <Content /> -->
+                <article set:html={entry.body}></article>
             </Markdown>
 
-            {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+            {licenseConfig.enable && <License title={entry.title} slug={entry.slug} pubDate={new Date(entry._sys.raw.publishedAt)} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
         </div>
     </div>

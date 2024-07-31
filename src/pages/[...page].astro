@@ -14,8 +14,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props
 
-console.log(JSON.stringify(page.data[0]))
-
 const len = page.data.length
 ---
 
