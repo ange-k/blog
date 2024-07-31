@@ -1,0 +1,49 @@
+---
+// タイムラインのデータ
+const milestones = [
+  { year: 2013, event: 'Graduated from College of Information Science and Engineering, Ritsumeikan University. Joined an independent system integrator specializing in embedded systems' },
+  { year: 2017, event: 'Joined an inbound travel startup. Participated in establishing the development department, focusing on in-house system development' },
+  { year: 2018, event: 'Joined Yahoo Japan Corporation. Engaged in the development of restaurant reservation systems' },
+  { year: 2020, event: 'Worked on the renovation of the reservation system for the GoToEat project. Responsible for system restructuring to handle large-scale increase in reservations and developing batch processes for government-required reservation result reports' },
+  { year: 2021, event: 'Transferred to the email delivery system development and operations department. Led planning for large-scale system replacement, coordinated internal security requirements, and developed opt-in API for email delivery' },
+  { year: 2023, event: 'Took parental leave. Company name changed to LINE Yahoo Corporation' },
+  { year: 2024, event: 'Transferred to the department responsible for operation and development of internal message queuing system (Pulsar)' }
+];
+
+// インフォグラフィックのデータ
+const stats = [
+{ label: 'Years as an Engineer', value: 11 },
+  { label: 'Monthly Targeted Emails', value: '4B+' },
+  { label: 'Max DB Table Rows Managed', value: '100B+' },
+  { label: 'Reservation Transaction Increase', value: '80x' },
+  { label: 'Time to Complete GoToEat Batch System', value: '2 weeks' }
+];
+---
+
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Career Timeline</h2>
+  <div class="space-y-4">
+    {milestones.map(milestone => (
+      <div class="flex items-center">
+        <div class="w-24 text-right mr-4 font-bold text-gray-700 dark:text-gray-300">{milestone.year}</div>
+        <div class="flex-1 bg-blue-100 dark:bg-blue-800 p-2 rounded text-gray-800 dark:text-gray-200">{milestone.event}</div>
+      </div>
+    ))}
+  </div>
+
+  <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200">Career Stats</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {stats.map(stat => (
+      <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-center">
+        <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{stat.value}</div>
+        <div class="text-gray-600 dark:text-gray-400">{stat.label}</div>
+      </div>
+    ))}
+  </div>
+
+  <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200">Years of Experience in Key Skills</h2>
+  <canvas id="skillChart" width="400" height="600"></canvas>
+</div>
+
+<script type="module" src="/src/script/chartScript.js">
+</script>

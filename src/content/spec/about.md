@@ -1,9 +1,10 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+I work as a company-employed engineer in Osaka, while also operating as a sole proprietor (Business name: AQUILA SYSTEM).
 
-::github{repo="saicaca/fuwari"}
+## Projects as a Sole Proprietor
+| Year | Content |
+| ---- | ------- |
+| 2021-2022 | Engaged in the development of an in-house system (Ruby On Rails) for a venture company in the recruitment industry |
+| 2023-2024 | Involved in the development of a new product using generative AI for the same company (Next.js, FastAPI, OpenAI API, LangChain, ELK Stack)|
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+# Portfolio
