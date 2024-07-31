@@ -16,20 +16,20 @@ let posts = await getSortedPosts()
 
 if (Array.isArray(tags) && tags.length > 0) {
     posts = posts.filter(post =>
-        Array.isArray(post.data.tags) && post.data.tags.some(tag => tags.includes(tag))
+        Array.isArray(post.tags) && post.tags.map((t) => t.name).some(tag => tags.includes(tag))
     );
 }
 
 if (Array.isArray(categories) && categories.length > 0) {
     posts = posts.filter(post =>
-        (post.data.category && categories.includes(post.data.category)) ||
-        (!post.data.category && categories.includes(UNCATEGORIZED))
+        (post.category.name && categories.includes(post.category.name)) ||
+        (!post.category.name && categories.includes(UNCATEGORIZED))
     );
 }
 
 const groups: {year: number, posts: typeof posts}[] = function () {
     const groupedPosts = posts.reduce((grouped: {[year: number]: typeof posts}, post) => {
-        const year = post.data.published.getFullYear()
+        const year = new Date(post._sys.raw.publishedAt).getFullYear()
         if (!grouped[year]) {
             grouped[year] = []
         }
@@ -73,13 +73,13 @@ function formatTag(tag: string[]) {
                 </div>
                 {group.posts.map(post => (
                     <a href={getPostUrlBySlug(post.slug)}
-                       aria-label={post.data.title}
+                       aria-label={post.title}
                        class="group btn-plain block h-10 w-full rounded-lg hover:text-[initial]"
                     >
                         <div class="flex flex-row justify-start items-center h-full">
                             <!-- date -->
                             <div class="w-[15%] md:w-[10%] transition text-sm text-right text-50">
-                                {formatDate(post.data.published)}
+                                {formatDate(new Date(post._sys.raw.publishedAt))}
                             </div>
                             <!-- dot and line -->
                             <div class="w-[15%] md:w-[10%] relative dash-line h-full flex items-center">
@@ -97,13 +97,13 @@ function formatTag(tag: string[]) {
                                 group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)]
                                 text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
                             >
-                                    {post.data.title}
+                                    {post.title}
                             </div>
                             <!-- tag list -->
                             <div class="hidden md:block md:w-[15%] text-left text-sm transition
                             whitespace-nowrap overflow-ellipsis overflow-hidden
                             text-30"
-                            >{formatTag(post.data.tags)}</div>
+                            >{formatTag(post.tags.map((t) => t.name))}</div>
                         </div>
                     </a>
                 ))}

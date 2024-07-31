@@ -12,9 +12,9 @@ export async function GET(context: any) {
     description: siteConfig.subtitle || 'No description',
     site: context.site,
     items: blog.map((post) => ({
-        title: post.data.title,
-        pubDate: post.data.published,
-        description: post.data.description,
+        title: post.title,
+        pubDate: new Date(post._sys.raw.publishedAt),
+        description: post.meta.description,
         link: `/posts/${post.slug}/`,
         content: sanitizeHtml(parser.render(post.body), {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
