@@ -6,6 +6,7 @@ import { Icon } from 'astro-icon/components';
 import {i18n} from "../i18n/translation";
 import I18nKey from "../i18n/i18nKey";
 import {getDir} from "../utils/url-utils";
+import readTime from "@/lib/readTime";
 
 interface Props {
     class?: string;
@@ -28,6 +29,7 @@ const hasCover = image !== undefined && image !== null && image !== '';
 const coverWidth = "28%";
 
 // const { remarkPluginFrontmatter } = await entry.render();
+const time = readTime(entry.body)
 
 ---
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
@@ -54,9 +56,9 @@ const coverWidth = "28%";
 
         <!-- word count and read time  -->
         <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
-            <!-- <div>{remarkPluginFrontmatter.words} {" " + i18n(I18nKey.wordsCount)}</div> -->
-            <!-- <div>|</div> -->
-            <!-- <div>{remarkPluginFrontmatter.minutes} {" " + i18n(I18nKey.minutesCount)}</div> -->
+            <div>{time.count} {" " + i18n(I18nKey.wordsCount)}</div>
+            <div>|</div>
+            <div>{time.time}</div>
         </div>
 
     </div>

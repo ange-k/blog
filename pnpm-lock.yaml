@@ -48,6 +48,9 @@ importers:
       chart.js:
         specifier: ^4.4.3
         version: 4.4.3
+      cheerio:
+        specifier: 1.0.0-rc.12
+        version: 1.0.0-rc.12
       colorjs.io:
         specifier: ^0.5.2
         version: 0.5.2

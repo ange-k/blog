@@ -10,7 +10,6 @@ const createChart = (isDark) => {
   const colors = getChartColors(isDark);
   const ctx = document.getElementById('skillChart');
   if (ctx instanceof HTMLCanvasElement) {
-      console.log('create chart')
       // スキルデータとカテゴリーの定義
       const skills = [
           { name: 'Java',             years: 11, category: 'language' },
@@ -174,6 +173,7 @@ const setUpChart = () => {
 }
 
 const setup = () => {
+    console.log('setup chart')
     setUpChart();
 }
 

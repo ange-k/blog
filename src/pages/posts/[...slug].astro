@@ -10,6 +10,9 @@ import ImageWrapper from '../../components/misc/ImageWrapper.astro'
 import { profileConfig } from '../../config'
 import { formatDateToYYYYMMDD } from '../../utils/date-utils'
 import { getSortedPosts } from '@utils/content-utils'
+import readTime from '@/lib/readTime'
+import { i18n } from '@i18n/translation'
+import I18nKey from '@i18n/i18nKey'
 
 export async function getStaticPaths() {
   const allBlogPosts = await getSortedPosts();
@@ -39,6 +42,8 @@ const jsonLd = {
   datePublished: formatDateToYYYYMMDD(new Date(entry._sys.raw.publishedAt)),
   // TODO include cover image here
 }
+
+const time = readTime(entry.body)
 ---
 <MainGridLayout banner={entry.coverImage.src} title={entry.title} description={entry.meta.description}>
     <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
@@ -52,13 +57,13 @@ const jsonLd = {
                     <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
                         <Icon name="material-symbols:notes-rounded"></Icon>
                     </div>
-                    <!-- <div class="text-sm">{remarkPluginFrontmatter.words} {" " + i18n(I18nKey.wordsCount)}</div> -->
+                    <div class="text-sm">{time.count} {" " + i18n(I18nKey.wordsCount)}</div>
                 </div>
                 <div class="flex flex-row items-center">
                     <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
                         <Icon name="material-symbols:schedule-outline-rounded"></Icon>
                     </div>
-                    <!-- <div class="text-sm">{remarkPluginFrontmatter.minutes} {" " + i18n(I18nKey.minutesCount)}</div> -->
+                    <div class="text-sm">{time.time}</div>
                 </div>
             </div>
 
