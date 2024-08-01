@@ -113,7 +113,7 @@ const createChart = (isDark) => {
           }
       });
   } else {
-      console.error('Canvas element not found or not ready');
+    //   console.error('Canvas element not found or not ready');
   }
 };
 
@@ -179,6 +179,9 @@ const setup = () => {
 
 if (window.swup) {
     setup()
+    window.swup.hooks.on('content:replace', () => {
+        setup();
+    })
 } else {
-    document.addEventListener('swup:enable', setup)
+    document.addEventListener('swup:enable', setup);
 }

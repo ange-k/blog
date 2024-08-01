@@ -18,8 +18,6 @@ export async function GET({request}) {
         }
     });
 
-    console.log(allBlogPosts)
-
     return new Response(JSON.stringify({ results: allBlogPosts }), {
       headers: {
           'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ import MainGridLayout from '../layouts/MainGridLayout.astro'
 import { getSortedPosts } from '../utils/content-utils'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const allBlogPosts = await getSortedPosts()
+  const allBlogPosts = (await getSortedPosts()).filter((p) => p.category.name !== 'Diary') // 日記はTopに表示しない
   return paginate(allBlogPosts, { pageSize: PAGE_SIZE })
 }) satisfies GetStaticPaths
 // https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
