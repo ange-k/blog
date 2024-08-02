@@ -9,7 +9,7 @@ export async function GET({request}:{request: { url: string}}) {
     const keyword = params.get('keyword');
 
     if (keyword === null || keyword.length === 0) {
-        return
+        return new Response(JSON.stringify({ results: [] }))
     }
 
     const { items: allBlogPosts } = await newtClient.getContents<Article>({
@@ -26,5 +26,5 @@ export async function GET({request}:{request: { url: string}}) {
       headers: {
           'Content-Type': 'application/json'
       }
-  });
+    });
 }
