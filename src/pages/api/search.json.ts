@@ -3,10 +3,14 @@ export const prerender = false
 import { newtClient } from '@/lib/newt';
 import type { Article } from '@/lib/newt';
 
-export async function GET({request}) {
+export async function GET({request}:{request: { url: string}}) {
     const url = new URL(request.url);
     const params = new URLSearchParams(url.search);
     const keyword = params.get('keyword');
+
+    if (keyword === null || keyword.length === 0) {
+        return
+    }
 
     const { items: allBlogPosts } = await newtClient.getContents<Article>({
         appUid: 'blog',
