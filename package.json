@@ -12,9 +12,6 @@
     "format": "biome format --write ./src",
     "lint": "biome check --apply ./src"
   },
-  "engines": {
-    "node": ">=22.5.1"
-  },
   "dependencies": {
     "@astrojs/check": "^0.8.3",
     "@astrojs/rss": "^4.0.7",
