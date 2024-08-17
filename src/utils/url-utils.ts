@@ -13,6 +13,9 @@ function joinUrl(...parts: string[]): string {
 }
 
 export function getPostUrlBySlug(slug: string): string {
+  if (!slug) {
+    return url('/about')
+  }
   return url(`/posts/${slug}/`)
 }
 
