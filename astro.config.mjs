@@ -19,6 +19,7 @@ import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import vercel from '@astrojs/vercel/serverless';
 import react from "@astrojs/react";
+import partytown from "@astrojs/partytown";
 const oklchToHex = str => {
   const DEFAULT_HUE = 250;
   const regex = /-?\d+(\.\d+)?/g;
@@ -64,7 +65,12 @@ export default defineConfig({
     Action: {
       Passed: async () => true // https://github.com/PlayForm/Compress/issues/376
     }
-  }), react()],
+  }), react(),
+  partytown({
+    config: {
+      forward: ["dataLayer.push"],
+    },
+  })],
   redirects: {
     '/2020/[month]/[slug]': '/posts/[...slug]/'
   },
