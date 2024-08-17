@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
   },
   banner: {
     enable: true,
-    src: 'assets/images/blue-header.png',   // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+    src: 'https://ik.imagekit.io/0vbjzxbih/images/blue-header.png?updatedAt=1723874329393',   // Relative to the /src directory. Relative to the /public directory if it starts with '/'
     position: 'center', // Equivalent to object-position, defaults center
     credit: {
       enable: false,         // Display the credit text of the banner image
@@ -47,7 +47,7 @@ export const navBarConfig: NavBarConfig = {
 }
 
 export const profileConfig: ProfileConfig = {
-  avatar: 'assets/images/blue-icon.png',  // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+  avatar: 'https://ik.imagekit.io/0vbjzxbih/images/blue-icon.png?updatedAt=1723874328296',
   name: 'ange-k',
   bio: 'Web engineer at LY Corporation, specializing in asynchronous processing and large-scale data handling. Passionate about consumer games (FromSoftware, Bethesda, Gust). Sharing insights on web technologies and personal growth through my blog',
   links: [

@@ -37,7 +37,6 @@ export async function getSortedPosts():Promise<Article[]> {
     sorted[i].data.prevTitle = sorted[i + 1].title
   }
 
-  // console.log(sorted)
   return sorted
 }
 

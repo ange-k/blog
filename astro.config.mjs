@@ -66,7 +66,7 @@ export default defineConfig({
     }
   }), react()],
   redirects: {
-
+    '/2020/[month]/[slug]': '/posts/[...slug]/'
   },
   markdown: {
     remarkPlugins: [remarkMath, remarkReadingTime, remarkGithubAdmonitionsToDirectives, remarkDirective, parseDirectiveNode],
