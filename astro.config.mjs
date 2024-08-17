@@ -35,7 +35,7 @@ const oklchToHex = str => {
 export default defineConfig({
   output: 'hybrid',
   adapter: vercel(),
-  site: "https://fuwari.vercel.app/",
+  site: "https://www.chalkboard.me/",
   base: "/",
   trailingSlash: "ignore",
   integrations: [tailwind(), swup({
